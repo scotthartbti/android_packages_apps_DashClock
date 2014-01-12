@@ -41,8 +41,8 @@
     <string name="cancel">Отмена</string>
 
     <!-- These strings never appear in release builds; translation is very low priority -->
-    <string name="send_logs">Send debug log</string>
-    <string name="send_logs_chooser_title">Send logs using</string>
+    <string name="send_logs">Отправить журнал отладки</string>
+    <string name="send_logs_chooser_title">Отправить журнал отладки, используя</string>
 
     <string name="prev_date_style">Предыдущий стиль</string>
     <string name="prev_time_style">Предыдущий стиль</string>
@@ -61,14 +61,14 @@
     <string name="about">О программе</string>
 
     <string name="about_body"><![CDATA[
-        Copyright 2012-2013 Google Inc. All Rights Reserved.<br>
+        Copyright 2012-2013 Google Inc.<br>All Rights Reserved.<br>
         <a href="http://m.google.com/utos">Условия использования</a>
         &nbsp;&nbsp;&middot;&nbsp;&nbsp;
-        <a href="http://www.google.com/policies/privacy/">Политика конфиденциальности</a><br><br>
+        <a href="http://www.google.com/policies/privacy/">Политика конфиденциальности</a>&nbsp;<br><br>
         Огромное спасибо этим инструментам с открытым кодом:<br><br>
-        <b><a href="http://www.androidicons.com/">Android Developer Icons</a></b><br>
-        <i>от Гюнтера Байера из <a href="http://www.opoloo.com/">Opoloo</a></i><br><br>
-        <b><a href="https://github.com/bauerca/drag-sort-listview">DragSortListView</a></b><br>
+        <b><a href="http://www.androidicons.com/">Android Developer Icons</a>&nbsp;</b><br>
+        <i>от Гюнтера Байера из <a href="http://www.opoloo.com/">Opoloo</a></i>&nbsp;<br><br>
+        <b><a href="https://github.com/bauerca/drag-sort-listview">DragSortListView</a></b>&nbsp;<br>
         <i>от Карла А. Бауэра</i><br><br>
         Перевод на русский язык благодаря Константину Шупленкову и Андрею Ситнику
     ]]></string>
@@ -139,7 +139,7 @@
     <!-- SMS + MMS -->
     <string name="sms_extension_title">Текстовые сообщения</string>
     <string name="sms_extension_description">
-        Отображает количество непрочтённых цепочек SMS и MMS вместе с именами отправителей.
+        Отображает количество непрочтённых цепочек SMS и MMS вместе с именами отправителе.
     </string>
     <plurals name="sms_title_template">
         <item quantity="one">%1$s цепочка</item>
@@ -156,5 +156,11 @@
         несколькими <i>расширениями</i>?
         \n\n<b>Расширения</b> добавляют отображение новых данных прямо внутри DashClock!
     </string>
+
+    <string name="remove">Удалить</string>
+    <string name="undo">Отменить</string>
+    <string name="extension_removed_template">\'%1$s\' удален.</string>
+    <string name="extensions_removed_template">%1%d расширений удалено.</string>
+    <string name="title_next_alarm_settings">Настройки расширения Next Alarm</string>
 
 </resources>
