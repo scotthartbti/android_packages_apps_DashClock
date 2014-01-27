@@ -269,8 +269,8 @@ public class ColorPreference extends Preference {
 
             // Set stroke
             int strokeColor = 0;
-            if (context.getResources().getConfiguration().uiThemeMode
-                        == Configuration.UI_THEME_MODE_HOLO_DARK && color == Color.BLACK) {
+            if (context.getResources().getConfiguration().uiInvertedMode
+                        == Configuration.UI_INVERTED_MODE_YES && color == Color.BLACK) {
                 strokeColor = Color.GRAY;
             } else {
                 strokeColor = Color.rgb(

@@ -210,8 +210,8 @@ public class AppChooserPreference extends Preference {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Force Holo Light since ?android:actionBarXX would use dark action bar
             Context layoutContext = new ContextThemeWrapper(getActivity(),
-                    getActivity().getResources().getConfiguration().uiThemeMode
-                        == Configuration.UI_THEME_MODE_HOLO_DARK
+                    getActivity().getResources().getConfiguration().uiInvertedMode
+                        == Configuration.UI_INVERTED_MODE_YES
                         ? android.R.style.Theme_Holo : android.R.style.Theme_Holo_Light);
 
             LayoutInflater layoutInflater = LayoutInflater.from(layoutContext);
