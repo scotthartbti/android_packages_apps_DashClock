@@ -80,19 +80,17 @@ public abstract class DashClockRenderer {
         // Load data from extensions
         List<ExtensionWithData> extensions = mExtensionManager.getActiveExtensionsWithData();
         int activeExtensions = extensions.size();
-        int visibleExtensions = 0;		
-        for (ExtensionWithData ewd : extensions) {		
-            if (!ewd.latestData.visible()) {		
-                continue;		
-            }		
-            ++visibleExtensions;		
+        int visibleExtensions = 0;
+        for (ExtensionWithData ewd : extensions) {
+            if (!ewd.latestData.visible()) {
+                continue;
+            }
+            ++visibleExtensions;
         }
 
         // Determine if we're on a tablet or not (lock screen widgets can't be collapsed on
         // tablets).
         boolean isTablet = res.getConfiguration().smallestScreenWidthDp >= 600;
-
-        int shadeColor = AppearanceConfig.getBackgroundColor(mContext, mOptions.target);
 
         boolean aggressiveCentering = AppearanceConfig.isAggressiveCenteringEnabled(mContext);
 
@@ -125,9 +123,13 @@ public abstract class DashClockRenderer {
                                 : R.layout.widget_main_collapsed_forced_center)
                         : R.layout.widget_main_collapsed));
 
-        // Step 2. Configure the shade, if it should exist
-        vb.setViewBackgroundColor(R.id.shade, shadeColor);
-        vb.setViewVisibility(R.id.shade, shadeColor == 0 ? View.GONE : View.VISIBLE);
+        // Step 2. Set the clock shading and show/hide the separator
+        vb.setViewBackgroundColor(R.id.clock_row, mOptions.backgroundColor);
+        if (mOptions.showSeparator) {
+            vb.setViewVisibility(R.id.card_shadow, View.VISIBLE);
+        } else {
+            vb.setViewVisibility(R.id.card_shadow, View.GONE);
+        }
 
         // Step 3. Draw the basic clock face
         boolean hideSettings;
@@ -275,31 +277,36 @@ public abstract class DashClockRenderer {
                         AppearanceConfig.getCurrentDateLayout(mContext),
                         R.id.date_container));
 
+        int clockTextSizeLargePx = AppearanceConfig.TextDensity.getClockTextSizeLarge(mContext,
+                mOptions.textDensity);
+        int clockTextSizeSmallPx = AppearanceConfig.TextDensity.getClockTextSizeSmall(mContext,
+                mOptions.textDensity);
+        int clockDatetextSizePx = AppearanceConfig.TextDensity.getClockDateTextSize(mContext,
+                mOptions.textDensity);
+
         if (mOptions.minWidthDp < MIN_NORMAL_FONTSIZE_WIDTH_DP) {
             Resources res = mContext.getResources();
-            int miniTextSizeLargePx = res.getDimensionPixelSize(R.dimen.mini_clock_text_size_large);
-            int miniTextSizeSmallPx = res.getDimensionPixelSize(R.dimen.mini_clock_text_size_small);
-            int miniDateTextSizePx = res.getDimensionPixelSize(R.dimen.mini_clock_date_text_size);
-            for (int id : LARGE_TIME_COMPONENT_IDS) {
-                vb.setTextViewTextSize(id, TypedValue.COMPLEX_UNIT_PX, miniTextSizeLargePx);
-            }
-            for (int id : SMALL_TIME_COMPONENT_IDS) {
-                vb.setTextViewTextSize(id, TypedValue.COMPLEX_UNIT_PX, miniTextSizeSmallPx);
-            }
-            for (int id : DATE_COMPONENT_IDS) {
-                vb.setTextViewTextSize(id, TypedValue.COMPLEX_UNIT_PX, miniDateTextSizePx);
-            }
+            clockTextSizeLargePx = Math.min(clockTextSizeLargePx,
+                    res.getDimensionPixelSize(R.dimen.mini_clock_text_size_large));
+            clockTextSizeSmallPx = Math.min(clockTextSizeSmallPx,
+                    res.getDimensionPixelSize(R.dimen.mini_clock_text_size_small));
+            clockDatetextSizePx = Math.min(clockDatetextSizePx,
+                    res.getDimensionPixelSize(R.dimen.mini_clock_date_text_size));
+
             int miniDatePaddingPx = res.getDimensionPixelSize(R.dimen.mini_clock_date_top_padding);
             vb.setViewPadding(R.id.date_container, 0, miniDatePaddingPx, 0, 0);
         }
 
         for (int id : LARGE_TIME_COMPONENT_IDS) {
+            vb.setTextViewTextSize(id, TypedValue.COMPLEX_UNIT_PX, clockTextSizeLargePx);
             vb.setTextViewColor(id, mOptions.foregroundColor);
         }
         for (int id : SMALL_TIME_COMPONENT_IDS) {
+            vb.setTextViewTextSize(id, TypedValue.COMPLEX_UNIT_PX, clockTextSizeSmallPx);
             vb.setTextViewColor(id, mOptions.foregroundColor);
         }
         for (int id : DATE_COMPONENT_IDS) {
+            vb.setTextViewTextSize(id, TypedValue.COMPLEX_UNIT_PX, clockDatetextSizePx);
             vb.setTextViewColor(id, mOptions.foregroundColor);
         }
 
@@ -393,7 +400,20 @@ public abstract class DashClockRenderer {
         if (convertRoot != null) {
             vb.useRoot(convertRoot);
         } else {
-            vb.loadRootLayout(container, R.layout.widget_list_item_expanded_extension);
+            int layoutId = (AppearanceConfig.PREF_FONT_LIGHT.equals(mOptions.font))
+                    ? R.layout.widget_list_item_expanded_extension
+                    : R.layout.widget_list_item_expanded_extension_condensed;
+            vb.loadRootLayout(container, layoutId);
+        }
+
+        // Set the shade
+        vb.setViewBackgroundColor(R.id.list_item_shade, mOptions.backgroundColor);
+
+        // Show/hide card shadow
+        if (mOptions.showSeparator) {
+            vb.setViewVisibility(R.id.card_shadow, View.VISIBLE);
+        } else {
+            vb.setViewVisibility(R.id.card_shadow, View.GONE);
         }
 
         if (ewd == null || ewd.latestData == null) {
@@ -402,6 +422,19 @@ public abstract class DashClockRenderer {
             vb.setViewVisibility(R.id.text2, View.GONE);
             return vb.getRoot();
         }
+
+        // Text density
+        vb.setViewPadding(R.id.list_item,
+                AppearanceConfig.TextDensity.getRowPaddingSide(mContext, mOptions.textDensity),
+                AppearanceConfig.TextDensity.getRowPaddingTop(mContext, mOptions.textDensity),
+                AppearanceConfig.TextDensity.getRowPaddingSide(mContext, mOptions.textDensity),
+                AppearanceConfig.TextDensity.getRowPaddingBottom(mContext, mOptions.textDensity));
+        vb.setTextViewTextSize(R.id.text1, TypedValue.COMPLEX_UNIT_PX,
+                AppearanceConfig.TextDensity.getExtensionTitleTextSize(mContext,
+                mOptions.textDensity));
+        vb.setTextViewTextSize(R.id.text2,TypedValue.COMPLEX_UNIT_PX,
+                AppearanceConfig.TextDensity.getExtensionBodyTextSize(mContext,
+                mOptions.textDensity));
 
         vb.setTextViewText(R.id.text1, Utils.expandedTitleOrStatus(ewd.latestData));
         vb.setTextViewColor(R.id.text1, mOptions.foregroundColor);
@@ -459,6 +492,7 @@ public abstract class DashClockRenderer {
         public int minWidthDp;
         public int minHeightDp;
         public int foregroundColor = AppearanceConfig.DEFAULT_WIDGET_FOREGROUND_COLOR;
+        public int backgroundColor = AppearanceConfig.DEFAULT_WIDGET_BACKGROUND_COLOR;
 
         // Only used by WidgetRenderer
         public int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID; // optional
@@ -467,6 +501,12 @@ public abstract class DashClockRenderer {
         public boolean newTaskOnClick;
         public OnClickListener onClickListener;
         public Intent clickIntentTemplate;
+
+        // Font preferences
+        public String font = AppearanceConfig.PREF_FONT_LIGHT;
+        public int textDensity = AppearanceConfig.TextDensity.DEFAULT_DENSITY;
+
+        public boolean showSeparator = false;
     }
 
     public static interface OnClickListener {

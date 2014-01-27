@@ -44,6 +44,24 @@
         android:summary="@string/pref_aggressive_centering_description"
         android:defaultValue="true" />
 
+    <ListPreference
+        android:key="pref_font"
+        android:entryValues="@array/pref_font_values"
+        android:entries="@array/pref_font_display_names"
+        android:title="@string/pref_font_title"
+        android:defaultValue="light"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null" />
+
+    <ListPreference
+        android:key="pref_text_density"
+        android:entryValues="@array/pref_text_density_values"
+        android:entries="@array/pref_text_density_display_names"
+        android:title="@string/pref_text_density_title"
+        android:defaultValue="0"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null" />
+
     <PreferenceCategory android:title="@string/pref_homescreen_title">
         <ListPreference
             android:key="pref_homescreen_background_opacity"
@@ -54,6 +72,18 @@
             android:defaultValue="50"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null" />
+
+        <com.google.android.apps.dashclock.configuration.ColorPreference
+            android:key="pref_homescreen_background_color"
+            android:title="@string/pref_background_color_title"
+            android:dialogTitle="@string/pref_background_color_title"
+            android:summary="@string/pref_background_color_description"
+            android:defaultValue="@android:color/black"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            app:numColumns="5"
+            app:itemLayout="@layout/pref_layout_color"
+            app:choices="@array/widget_color_choice_values" />
 
         <com.google.android.apps.dashclock.configuration.ColorPreference
             android:key="pref_homescreen_foreground_color"
@@ -73,6 +103,12 @@
             android:summary="@string/pref_hide_clock_description"
             android:defaultValue="false" />
 
+        <CheckBoxPreference
+            android:key="pref_homescreen_show_separator"
+            android:title="@string/pref_show_separator_title"
+            android:summary="@string/pref_show_separator_description"
+            android:defaultValue="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_lockscreen_title">
@@ -85,6 +121,18 @@
             android:defaultValue="0"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null" />
+
+        <com.google.android.apps.dashclock.configuration.ColorPreference
+            android:key="pref_lockscreen_background_color"
+            android:title="@string/pref_background_color_title"
+            android:dialogTitle="@string/pref_background_color_title"
+            android:summary="@string/pref_background_color_description"
+            android:defaultValue="@android:color/black"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            app:numColumns="5"
+            app:itemLayout="@layout/pref_layout_color"
+            app:choices="@array/widget_color_choice_values" />
 
         <com.google.android.apps.dashclock.configuration.ColorPreference
             android:key="pref_lockscreen_foreground_color"
@@ -102,6 +150,12 @@
             android:key="pref_lockscreen_hide_clock"
             android:title="@string/pref_hide_clock_title"
             android:summary="@string/pref_hide_clock_description"
+            android:defaultValue="false" />
+
+        <CheckBoxPreference
+            android:key="pref_lockscreen_show_separator"
+            android:title="@string/pref_show_separator_title"
+            android:summary="@string/pref_show_separator_description"
             android:defaultValue="false" />
 
     </PreferenceCategory>

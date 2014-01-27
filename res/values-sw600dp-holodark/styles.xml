@@ -14,12 +14,14 @@
   limitations under the License.
   -->
 
-<TextClock xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/TimeComponent"
-    android:id="@id/small_time_component_1"
-    android:format12Hour="h:mm"
-    android:format24Hour="kk:mm"
-    android:fontFamily="sans-serif-condensed"
-    android:textStyle="bold"
-    android:textSize="@dimen/clock_text_size_small_comfortable"
-    android:paddingBottom="8dp"/>
+<resources>
+
+    <style name="Configuration.Theme.Base" parent="android:Theme.Holo.Dialog">
+        <item name="isDialog">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+</resources>

@@ -46,13 +46,13 @@
                        android:layout_marginEnd="12dp"
                        tools:ignore="ContentDescription" />
 
-            <TextView style="@style/ExtensionData.Text.ExpandedTitle"
+            <TextView style="@style/ExtensionData.Text.ExpandedTitle.Condensed"
                       android:id="@+id/text1"
                       android:layout_toEndOf="@id/icon"
                       android:layout_alignTop="@id/icon"
                       android:layout_alignParentEnd="true" />
 
-            <TextView style="@style/ExtensionData.Text.ExpandedBody"
+            <TextView style="@style/ExtensionData.Text.ExpandedBody.Condensed"
                       android:id="@+id/text2"
                       android:layout_below="@id/text1"
                       android:layout_alignStart="@id/text1"
@@ -65,5 +65,4 @@
     <ImageView
         android:id="@+id/card_shadow"
         style="@style/cardShadow"/>
-
 </LinearLayout>

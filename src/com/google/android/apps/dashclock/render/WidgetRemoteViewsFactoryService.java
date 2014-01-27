@@ -85,7 +85,7 @@ public class WidgetRemoteViewsFactoryService extends RemoteViewsService {
         }
 
         public int getViewTypeCount() {
-            return 1;
+            return 2;
         }
 
         public long getItemId(int position) {
@@ -116,6 +116,11 @@ public class WidgetRemoteViewsFactoryService extends RemoteViewsService {
             DashClockRenderer.Options options = new DashClockRenderer.Options();
             options.target = mTarget;
             options.foregroundColor = AppearanceConfig.getForegroundColor(mContext, mTarget);
+            options.backgroundColor = AppearanceConfig.getBackgroundColor(mContext, mTarget);
+            options.font = AppearanceConfig.getFont(mContext);
+            options.textDensity = AppearanceConfig.getTextDensity(mContext);
+            options.showSeparator = AppearanceConfig.getShowSeparator(mContext, mTarget);
+
             renderer.setOptions(options);
             ExtensionManager.ExtensionWithData ewd = getItemAtProtected(position);
             return (RemoteViews) (mIsMini

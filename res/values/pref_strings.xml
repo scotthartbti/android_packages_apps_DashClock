@@ -164,4 +164,38 @@
         <item>none</item>
     </string-array>
     <string name="pref_daydream_system_settings_title">System Daydream settings</string>
+
+    <!-- Font preferences -->
+    <string name="pref_font_title">Font</string>
+    <string-array name="pref_font_display_names">
+        <item>Light</item>
+        <item>Condensed</item>
+    </string-array>
+    <string-array name="pref_font_values">
+        <item>light</item>
+        <item>condensed</item>
+    </string-array>
+
+    <!-- Background color -->
+    <string name="pref_background_color_title">Background color</string>
+    <string name="pref_background_color_description">The color of the background</string>
+
+    <!-- Separator -->
+    <string name="pref_show_separator_title">Separator between extensions</string>
+    <string name="pref_show_separator_description">Draws a shadow beneath each extension</string>
+
+    <!-- Density -->
+    <string name="pref_text_density_title">Text density</string>
+    <string-array name="pref_text_density_display_names">
+        <item>Comfortable</item>
+        <item>Cozy</item>
+        <item>Compact</item>
+    </string-array>
+    <!-- Keep this in sync with options in TextDensity class... -->
+    <string-array name="pref_text_density_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
 </resources>
